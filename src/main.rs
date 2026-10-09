@@ -38,8 +38,10 @@ async fn main() {
     let mut btn_Exit = TextButton::new(1500.0, 1100.0, 200.0, 60.0, "Exit", WHITE, RED, 30);
 
     let mut btn_Reset = TextButton::new(600.0, 1100.0, 200.0, 60.0, "Reset", WHITE, RED, 30);
+    let mut is_x_turn = true;
+
     texture_manager
-        .preload_with_loading_screen(&["assets/o.png", "assets/x.png"], None, None)
+        .preload_with_loading_screen(&["assets/o.png", "assets/x.png","assets/placeholder.png"], None, None)
         .await;
     btn_Exit.with_text_color(BLACK); // Sets the normal text color
     btn_Exit.with_hover_text_color(WHITE);
@@ -50,8 +52,8 @@ async fn main() {
         0.0,          // y position
         200.0,          // width
         200.0,          // height
-        "assets/x.png", // normal state image
-        "assets/x.png", // hover state image
+        "assets/placeholder.png", // normal state image
+        "assets/placeholder.png", // hover state image
     )
     .await;
 let btn_box2 = ImageButton::new(
@@ -59,8 +61,8 @@ let btn_box2 = ImageButton::new(
         0.0,          // y position
         200.0,          // width
         200.0,          // height
-        "assets/x.png", // normal state image
-        "assets/x.png", // hover state image
+        "assets/placeholder.png", // normal state image
+        "assets/placeholder.png", // hover state image
     )
     .await;
 let btn_box3 = ImageButton::new(
@@ -68,69 +70,69 @@ let btn_box3 = ImageButton::new(
         0.0,          // y position
         200.0,          // width
         200.0,          // height
-        "assets/x.png", // normal state image
-        "assets/x.png", // hover state image
+        "assets/placeholder.png", // normal state image
+        "assets/placeholder.png", // hover state image
     )
     .await;
 let btn_box4 = ImageButton::new(
         500.0,          // x position
-        400.0,          // y position
+        300.0,          // y position
         200.0,          // width
         200.0,          // height
-        "assets/x.png", // normal state image
-        "assets/x.png", // hover state image
+        "assets/placeholder.png", // normal state image
+        "assets/placeholder.png", // hover state image
     )
     .await;
 let btn_box5 = ImageButton::new(
         800.0,          // x position
-        400.0,          // y position
+        300.0,          // y position
         200.0,          // width
         200.0,          // height
-        "assets/x.png", // normal state image
-        "assets/x.png", // hover state image
+        "assets/placeholder.png", // normal state image
+        "assets/placeholder.png", // hover state image
     )
     .await;
 let btn_box6 = ImageButton::new(
         1100.0,          // x position
-        400.0,          // y position
+        300.0,          // y position
         200.0,          // width
         200.0,          // height
-        "assets/x.png", // normal state image
-        "assets/x.png", // hover state image
+        "assets/placeholder.png", // normal state image
+        "assets/placeholder.png", // hover state image
     )
     .await;
 let btn_box7 = ImageButton::new(
         500.0,          // x position
-        700.0,          // y position
+        600.0,          // y position
         200.0,          // width
         200.0,          // height
-        "assets/x.png", // normal state image
-        "assets/x.png", // hover state image
+        "assets/placeholder.png", // normal state image
+        "assets/placeholder.png", // hover state image
     )
     .await;
 let btn_box8 = ImageButton::new(
         800.0,          // x position
-        700.0,          // y position
+        600.0,          // y position
         200.0,          // width
         200.0,          // height
-        "assets/x.png", // normal state image
-        "assets/x.png", // hover state image
+        "assets/placeholder.png", // normal state image
+        "assets/placeholder.png", // hover state image
     )
     .await;
 let btn_box9 = ImageButton::new(
         1100.0,         // x position
-        700.0,          // y position
+        600.0,          // y position
         200.0,          // width
         200.0,          // height
-        "assets/x.png", // normal state image
-        "assets/x.png", // hover state image
+        "assets/placeholder.png", // normal state image
+        "assets/placeholder.png", // hover state image
     )
     .await;
 
     loop {
         clear_background(WHITE);
         if btn_box1.click() {
-            // Handle button click
+         
         }
         if btn_box2.click() {
             // Handle button click
