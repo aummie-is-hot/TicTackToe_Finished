@@ -38,7 +38,7 @@ async fn main() {
     let mut btn_Exit = TextButton::new(1500.0, 1100.0, 200.0, 60.0, "Exit", WHITE, RED, 30);
 
     let mut btn_Reset = TextButton::new(600.0, 1100.0, 200.0, 60.0, "Reset", WHITE, RED, 30);
-    let mut is_x_turn = true;
+    
 
     texture_manager
         .preload_with_loading_screen(&["assets/o.png", "assets/x.png","assets/placeholder.png"], None, None)
@@ -47,116 +47,229 @@ async fn main() {
     btn_Exit.with_hover_text_color(WHITE);
     btn_Reset.with_text_color(BLACK); // Sets the normal text color
     btn_Reset.with_hover_text_color(WHITE);
-    let btn_box1 = ImageButton::new(
+     let lbl_score = Label::new("score: 0-0", 850.0, 1000.0, 30);
+    let mut btn_box1 = ImageButton::new(
         500.0,          // x position
-        0.0,          // y position
+        50.0,          // y position
         200.0,          // width
         200.0,          // height
         "assets/placeholder.png", // normal state image
         "assets/placeholder.png", // hover state image
     )
     .await;
-let btn_box2 = ImageButton::new(
+let mut btn_box2 = ImageButton::new(
         800.0,          // x position
-        0.0,          // y position
+        50.0,          // y position
         200.0,          // width
         200.0,          // height
         "assets/placeholder.png", // normal state image
         "assets/placeholder.png", // hover state image
     )
     .await;
-let btn_box3 = ImageButton::new(
+let mut btn_box3 = ImageButton::new(
         1100.0,          // x position
-        0.0,          // y position
+        50.0,          // y position
         200.0,          // width
         200.0,          // height
         "assets/placeholder.png", // normal state image
         "assets/placeholder.png", // hover state image
     )
     .await;
-let btn_box4 = ImageButton::new(
+let mut btn_box4 = ImageButton::new(
         500.0,          // x position
-        300.0,          // y position
+        350.0,          // y position
         200.0,          // width
         200.0,          // height
         "assets/placeholder.png", // normal state image
         "assets/placeholder.png", // hover state image
     )
     .await;
-let btn_box5 = ImageButton::new(
+let mut btn_box5 = ImageButton::new(
         800.0,          // x position
-        300.0,          // y position
+        350.0,          // y position
         200.0,          // width
         200.0,          // height
         "assets/placeholder.png", // normal state image
         "assets/placeholder.png", // hover state image
     )
     .await;
-let btn_box6 = ImageButton::new(
+let mut btn_box6 = ImageButton::new(
         1100.0,          // x position
-        300.0,          // y position
+        350.0,          // y position
         200.0,          // width
         200.0,          // height
         "assets/placeholder.png", // normal state image
         "assets/placeholder.png", // hover state image
     )
     .await;
-let btn_box7 = ImageButton::new(
+let mut btn_box7 = ImageButton::new(
         500.0,          // x position
-        600.0,          // y position
+        650.0,          // y position
         200.0,          // width
         200.0,          // height
         "assets/placeholder.png", // normal state image
         "assets/placeholder.png", // hover state image
     )
     .await;
-let btn_box8 = ImageButton::new(
+let mut btn_box8 = ImageButton::new(
         800.0,          // x position
-        600.0,          // y position
+        650.0,          // y position
         200.0,          // width
         200.0,          // height
         "assets/placeholder.png", // normal state image
         "assets/placeholder.png", // hover state image
     )
     .await;
-let btn_box9 = ImageButton::new(
+let mut btn_box9 = ImageButton::new(
         1100.0,         // x position
-        600.0,          // y position
+        650.0,          // y position
         200.0,          // width
         200.0,          // height
         "assets/placeholder.png", // normal state image
         "assets/placeholder.png", // hover state image
     )
     .await;
-
+let mut is_x_turn = true;
     loop {
         clear_background(WHITE);
+
+
         if btn_box1.click() {
-         
+            if is_x_turn == true {
+            btn_box1.set_image(
+        "assets/x.png",
+        "assets/x.png"
+    ).await;
+            is_x_turn = false;
+         } else {
+            btn_box1.set_image(
+        "assets/o.png",
+        "assets/o.png"
+    ).await;
+            is_x_turn = true;
+         }
         }
+         
+
         if btn_box2.click() {
-            // Handle button click
+            if is_x_turn == true {
+            btn_box2.set_image(
+        "assets/x.png",
+        "assets/x.png"
+    ).await;
+            is_x_turn = false;
+         } else {
+            btn_box2.set_image(
+        "assets/o.png",
+        "assets/o.png"
+    ).await;
+            is_x_turn = true;
+         }
         }
         if btn_box3.click() {
-            // Handle button click
+            if is_x_turn == true {
+            btn_box3.set_image(
+        "assets/x.png",
+        "assets/x.png"
+    ).await;
+            is_x_turn = false;
+         } else {
+            btn_box3.set_image(
+        "assets/o.png",
+        "assets/o.png"
+    ).await;
+            is_x_turn = true;
+         }
         }
         if btn_box4.click() {
-            // Handle button click
+            if is_x_turn == true {
+            btn_box4.set_image(
+        "assets/x.png",
+        "assets/x.png"
+    ).await;
+            is_x_turn = false;
+         } else {
+            btn_box4.set_image(
+        "assets/o.png",
+        "assets/o.png"
+    ).await;
+            is_x_turn = true;
+         }
         }
         if btn_box5.click() {
-            // Handle button click
+            if is_x_turn == true {
+            btn_box5.set_image(
+        "assets/x.png",
+        "assets/x.png"
+    ).await;
+            is_x_turn = false;
+         } else {
+            btn_box5.set_image(
+        "assets/o.png",
+        "assets/o.png"
+    ).await;
+            is_x_turn = true;
+         }
         }
         if btn_box6.click() {
-            // Handle button click
+            if is_x_turn == true {
+            btn_box6.set_image(
+        "assets/x.png",
+        "assets/x.png"
+    ).await;
+            is_x_turn = false;
+         } else {
+            btn_box6.set_image(
+        "assets/o.png",
+        "assets/o.png"
+    ).await;
+            is_x_turn = true;
+         }
         }
         if btn_box7.click() {
-            // Handle button click
+            if is_x_turn == true {
+            btn_box7.set_image(
+        "assets/x.png",
+        "assets/x.png"
+    ).await;
+            is_x_turn = false;
+         } else {
+            btn_box7.set_image(
+        "assets/o.png",
+        "assets/o.png"
+    ).await;
+            is_x_turn = true;
+         }
         }
         if btn_box8.click() {
-            // Handle button click
+            if is_x_turn == true {
+            btn_box8.set_image(
+        "assets/x.png",
+        "assets/x.png"
+    ).await;
+            is_x_turn = false;
+         } else {
+            btn_box8.set_image(
+        "assets/o.png",
+        "assets/o.png"
+    ).await;
+            is_x_turn = true;
+         }
         }
         if btn_box9.click() {
-            // Handle button click
+            if is_x_turn == true {
+            btn_box9.set_image(
+        "assets/x.png",
+        "assets/x.png"
+    ).await;
+            is_x_turn = false;
+         } else {
+            btn_box9.set_image(
+        "assets/o.png",
+        "assets/o.png"
+    ).await;
+            is_x_turn = true;
+         }
         }
         if btn_Exit.click() {
             break;
@@ -164,6 +277,7 @@ let btn_box9 = ImageButton::new(
         if btn_Reset.click() {
             // Handle reset button click
         }
+        lbl_score.draw();
         next_frame().await;
     }
 }
