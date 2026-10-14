@@ -15,6 +15,7 @@ use crate::ui::text_button::TextButton;
 use crate::ui::text_input::TextInput;
 use crate::utils::preload_image::LoadingScreenOptions;
 use crate::utils::preload_image::TextureManager;
+use macroquad::input::KeyCode::B;
 use macroquad::prelude::*;
 
 /// Set up window settings before the app runs
@@ -34,7 +35,17 @@ fn window_conf() -> Conf {
 #[macroquad::main(window_conf)]
 async fn main() {
     let texture_manager = TextureManager::new();
-
+    async fn click(is_x_turn: &mut bool, btn_box: &mut ImageButton) {
+        if *is_x_turn {
+            *is_x_turn = false;
+            btn_box.set_image("assets/x.png", "assets/x.png").await;
+            btn_box.enabled = false;
+        } else {
+            *is_x_turn = true;
+            btn_box.set_image("assets/o.png", "assets/o.png").await;
+            btn_box.enabled = false; // Disable the button after it has been clicked
+        }
+    }
     let mut btn_Exit = TextButton::new(1500.0, 1100.0, 200.0, 60.0, "Exit", WHITE, RED, 30);
 
     let mut btn_Reset = TextButton::new(600.0, 1100.0, 200.0, 60.0, "Reset", WHITE, RED, 30);
@@ -130,146 +141,49 @@ let mut btn_box9 = ImageButton::new(
     )
     .await;
 let mut is_x_turn = true;
+let btn1disabled = false;
+let btn2disabled = false;
+let btn3disabled = false;
+let btn4disabled = false;
+let btn5disabled = false;
+let btn6disabled = false;
+let btn7disabled = false;
+let btn8disabled = false;
+let btn9disabled = false;
     loop {
         clear_background(WHITE);
 
 
         if btn_box1.click() {
-            if is_x_turn == true {
-            btn_box1.set_image(
-        "assets/x.png",
-        "assets/x.png"
-    ).await;
-            is_x_turn = false;
-         } else {
-            btn_box1.set_image(
-        "assets/o.png",
-        "assets/o.png"
-    ).await;
-            is_x_turn = true;
-         }
+            click(&mut is_x_turn, &mut btn_box1).await;
+            
+      
         }
          
 
         if btn_box2.click() {
-            if is_x_turn == true {
-            btn_box2.set_image(
-        "assets/x.png",
-        "assets/x.png"
-    ).await;
-            is_x_turn = false;
-         } else {
-            btn_box2.set_image(
-        "assets/o.png",
-        "assets/o.png"
-    ).await;
-            is_x_turn = true;
-         }
+            click(&mut is_x_turn, &mut btn_box2).await;
         }
         if btn_box3.click() {
-            if is_x_turn == true {
-            btn_box3.set_image(
-        "assets/x.png",
-        "assets/x.png"
-    ).await;
-            is_x_turn = false;
-         } else {
-            btn_box3.set_image(
-        "assets/o.png",
-        "assets/o.png"
-    ).await;
-            is_x_turn = true;
-         }
+           click(&mut is_x_turn, &mut btn_box3).await;
         }
         if btn_box4.click() {
-            if is_x_turn == true {
-            btn_box4.set_image(
-        "assets/x.png",
-        "assets/x.png"
-    ).await;
-            is_x_turn = false;
-         } else {
-            btn_box4.set_image(
-        "assets/o.png",
-        "assets/o.png"
-    ).await;
-            is_x_turn = true;
-         }
+            click(&mut is_x_turn, &mut btn_box4).await;
         }
         if btn_box5.click() {
-            if is_x_turn == true {
-            btn_box5.set_image(
-        "assets/x.png",
-        "assets/x.png"
-    ).await;
-            is_x_turn = false;
-         } else {
-            btn_box5.set_image(
-        "assets/o.png",
-        "assets/o.png"
-    ).await;
-            is_x_turn = true;
-         }
+            click(&mut is_x_turn, &mut btn_box5).await;
         }
         if btn_box6.click() {
-            if is_x_turn == true {
-            btn_box6.set_image(
-        "assets/x.png",
-        "assets/x.png"
-    ).await;
-            is_x_turn = false;
-         } else {
-            btn_box6.set_image(
-        "assets/o.png",
-        "assets/o.png"
-    ).await;
-            is_x_turn = true;
-         }
+            click(&mut is_x_turn, &mut btn_box6).await;
         }
         if btn_box7.click() {
-            if is_x_turn == true {
-            btn_box7.set_image(
-        "assets/x.png",
-        "assets/x.png"
-    ).await;
-            is_x_turn = false;
-         } else {
-            btn_box7.set_image(
-        "assets/o.png",
-        "assets/o.png"
-    ).await;
-            is_x_turn = true;
-         }
+            click(&mut is_x_turn, &mut btn_box7).await;
         }
         if btn_box8.click() {
-            if is_x_turn == true {
-            btn_box8.set_image(
-        "assets/x.png",
-        "assets/x.png"
-    ).await;
-            is_x_turn = false;
-         } else {
-            btn_box8.set_image(
-        "assets/o.png",
-        "assets/o.png"
-    ).await;
-            is_x_turn = true;
-         }
+            click(&mut is_x_turn, &mut btn_box8).await;
         }
         if btn_box9.click() {
-            if is_x_turn == true {
-            btn_box9.set_image(
-        "assets/x.png",
-        "assets/x.png"
-    ).await;
-            is_x_turn = false;
-         } else {
-            btn_box9.set_image(
-        "assets/o.png",
-        "assets/o.png"
-    ).await;
-            is_x_turn = true;
-         }
+            click(&mut is_x_turn, &mut btn_box9).await;
         }
         if btn_Exit.click() {
             break;
