@@ -6,6 +6,7 @@ Program Details: Tic tac toe game
 
 mod ui;
 mod utils;
+use core::num;
 use std::result;
 
 use crate::ui::image_button::ImageButton;
@@ -35,15 +36,19 @@ fn window_conf() -> Conf {
 #[macroquad::main(window_conf)]
 async fn main() {
     let texture_manager = TextureManager::new();
-    async fn click(is_x_turn: &mut bool, btn_box: &mut ImageButton) {
+    async fn click(is_x_turn: &mut bool, btn_box: &mut ImageButton, num : &mut i32) -> i32 {
         if *is_x_turn {
             *is_x_turn = false;
             btn_box.set_image("assets/x.png", "assets/x.png").await;
             btn_box.enabled = false;
+             *num = 1;
+             return *num;
         } else {
             *is_x_turn = true;
             btn_box.set_image("assets/o.png", "assets/o.png").await;
             btn_box.enabled = false; // Disable the button after it has been clicked
+            *num = 0;
+             return *num;
         }
     }
     let mut btn_Exit = TextButton::new(1500.0, 1100.0, 200.0, 60.0, "Exit", WHITE, RED, 30);
@@ -141,57 +146,52 @@ let mut btn_box9 = ImageButton::new(
     )
     .await;
 let mut is_x_turn = true;
-let btn1disabled = false;
-let btn2disabled = false;
-let btn3disabled = false;
-let btn4disabled = false;
-let btn5disabled = false;
-let btn6disabled = false;
-let btn7disabled = false;
-let btn8disabled = false;
-let btn9disabled = false;
+
+let mut num = 0;
     loop {
         clear_background(WHITE);
 
 
         if btn_box1.click() {
-            click(&mut is_x_turn, &mut btn_box1).await;
+            click(&mut is_x_turn, &mut btn_box1, &mut num).await;
             
       
         }
          
 
         if btn_box2.click() {
-            click(&mut is_x_turn, &mut btn_box2).await;
+            click(&mut is_x_turn, &mut btn_box2, &mut num).await;
+            num = num;
         }
         if btn_box3.click() {
-           click(&mut is_x_turn, &mut btn_box3).await;
+           click(&mut is_x_turn, &mut btn_box3, &mut num).await;
         }
         if btn_box4.click() {
-            click(&mut is_x_turn, &mut btn_box4).await;
+            click(&mut is_x_turn, &mut btn_box4, &mut num).await;
         }
         if btn_box5.click() {
-            click(&mut is_x_turn, &mut btn_box5).await;
+            click(&mut is_x_turn, &mut btn_box5, &mut num).await;
         }
         if btn_box6.click() {
-            click(&mut is_x_turn, &mut btn_box6).await;
+            click(&mut is_x_turn, &mut btn_box6, &mut num).await;
         }
         if btn_box7.click() {
-            click(&mut is_x_turn, &mut btn_box7).await;
+            click(&mut is_x_turn, &mut btn_box7, &mut num).await;
         }
         if btn_box8.click() {
-            click(&mut is_x_turn, &mut btn_box8).await;
+            click(&mut is_x_turn, &mut btn_box8, &mut num).await;
         }
         if btn_box9.click() {
-            click(&mut is_x_turn, &mut btn_box9).await;
+            click(&mut is_x_turn, &mut btn_box9, &mut num).await;
         }
         if btn_Exit.click() {
             break;
         }
         if btn_Reset.click() {
-            // Handle reset button click
+            println!("{}", num);
         }
         lbl_score.draw();
+
         next_frame().await;
     }
 }
