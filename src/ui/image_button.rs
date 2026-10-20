@@ -175,7 +175,9 @@ impl ImageButton {
             self.tex_height = tex_height;
         }
     }
-   
+    pub fn get_filename(&self) -> String {
+        self.filename.clone()   
+    }
     pub fn click(&self) -> bool {
         if !self.visible {
             return false; // If the button is not visible, don't process clicks
