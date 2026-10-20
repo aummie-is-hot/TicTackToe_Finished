@@ -123,16 +123,93 @@ async fn main() {
      let mut lbl_score = Label::new("score: 0-0", 425.0, 600.0, 30);
       let mut lbl_Player = Label::new("Player: X", 100.0, 600.0, 30);
    let mut player = false;
+   let mut x_score = 0;
+    let mut o_score = 0;
+    let mut game_over = false;
     loop {
         clear_background(WHITE);
-        
+        lbl_score.set_text(&format!("Score: X: {} - O: {}", x_score,o_score));
         for i in (0..btns.len()).step_by(3){
-            if btns[i].get_filename() == "assets/x.png" && btns[i].get_filename() == btns[i+1].get_filename() && btns[i].get_filename() == btns[i+2].get_filename() && btns[i+1].get_filename() == btns[i+2].get_filename() && btns[i].get_filename() == btns[i+2].get_filename(){
-                lbl_score.set_text(&format!("score"));
-                println!("won")
+            if btns[i].get_filename() != "assets/placeholder.png" && btns[i].get_filename() == btns[i+1].get_filename() && btns[i].get_filename() == btns[i+2].get_filename() && btns[i+1].get_filename() == btns[i+2].get_filename() && btns[i].get_filename() == btns[i+2].get_filename() {
+                
+                if game_over == false {
+                    if btns[i].get_filename() == "assets/x.png" {
+                
+        x_score += 1;
+        game_over = true;
+    } else {
+        o_score += 1;
+        game_over = true;
+    }
+                }
+                 
+    btns[i].enabled = false;
+    lbl_Player.set_text(&format!("{} won!", btns[i].get_filename()));
             } 
+             
         }
+       for i in (0..3).step_by(1) { // dont do 0..btns len cuz then the index cant be greater than 2 before the program crashes as 3 plus 6 is nine and the length of btns is 8 so it crashes
+    if btns[i].get_filename() != "assets/placeholder.png"// ||btns[i].get_filename() == "assets/o.png"
+        && btns[i].get_filename() == btns[i+3].get_filename()
+        && btns[i].get_filename() == btns[i+6].get_filename()
+    {
        
+         if game_over == false {
+                    if btns[i].get_filename() == "assets/x.png" {
+                
+        x_score += 1;
+        game_over = true;
+    } else {
+        o_score += 1;
+        game_over = true;
+    }
+                }
+    btns[i].enabled = false;
+    lbl_Player.set_text(&format!("{} won!", btns[i].get_filename()));
+    }
+}
+for i in (2..3).step_by(2) {
+    if btns[i].get_filename() != "assets/placeholder.png"
+        && btns[i].get_filename() == btns[i+2].get_filename()
+        && btns[i].get_filename() == btns[i+4].get_filename()
+    {
+       if game_over == false {
+                    if btns[i].get_filename() == "assets/x.png" {
+                
+        x_score += 1;
+        game_over = true;
+    } else {
+        o_score += 1;
+        game_over = true;
+    }
+                }
+
+        btns[i].enabled = false;
+        lbl_Player.set_text(&format!("{} won!", btns[i].get_filename()));
+    }
+}
+
+for i in (2..3).step_by(2) {
+   if btns[0].get_filename() != "assets/placeholder.png"
+    && btns[0].get_filename() == btns[4].get_filename()
+    && btns[0].get_filename() == btns[8].get_filename()
+{
+   if game_over == false {
+                    if btns[i].get_filename() == "assets/x.png" {
+                
+        x_score += 1;
+        game_over = true;
+    } else {
+        o_score += 1;
+        game_over = true;
+    }
+                }
+
+    btns[0].enabled = false;
+    lbl_Player.set_text(&format!("{} won!", btns[0].get_filename()));
+}
+}// add reset confirmation to reset score aswell or just gameboard
+
        
         for i in 0..btns.len(){
             if btns[i].click(){
@@ -161,6 +238,7 @@ async fn main() {
                 player = false;
                 btns[i].enabled = true;
                 lbl_Player.set_text("Player: X");
+                game_over = false;
             }
         }
         lbl_Player.draw();
