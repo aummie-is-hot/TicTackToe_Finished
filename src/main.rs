@@ -36,6 +36,7 @@ fn window_conf() -> Conf {
 
 #[macroquad::main(window_conf)]
 async fn main() {
+   
     let texture_manager = TextureManager::new();
    
     let mut btn_Exit = TextButton::new(550.0, 700.0, 200.0, 60.0, "Exit", WHITE, RED, 30);
@@ -112,7 +113,7 @@ async fn main() {
         "assets/placeholder.png",        // normal state image
         "assets/placeholder.png",  // hover state image
     ).await];
-
+     
     texture_manager
         .preload_with_loading_screen(&["assets/o.png", "assets/x.png","assets/placeholder.png"], None, None)
         .await;
@@ -128,6 +129,11 @@ async fn main() {
     let mut game_over = false;
     loop {
         clear_background(WHITE);
+        if game_over == true{
+              for i in 0..btns.len(){
+            btns[i].enabled = false;
+         } 
+        }
         lbl_score.set_text(&format!("Score: X: {} - O: {}", x_score,o_score));
         for i in (0..btns.len()).step_by(3){
             if btns[i].get_filename() != "assets/placeholder.png" && btns[i].get_filename() == btns[i+1].get_filename() && btns[i].get_filename() == btns[i+2].get_filename() && btns[i+1].get_filename() == btns[i+2].get_filename() && btns[i].get_filename() == btns[i+2].get_filename() {
@@ -137,14 +143,17 @@ async fn main() {
                 
         x_score += 1;
         game_over = true;
+         lbl_Player.set_text("X won!");
+       
     } else {
         o_score += 1;
         game_over = true;
+        lbl_Player.set_text("O won!");
     }
                 }
                  
     btns[i].enabled = false;
-    lbl_Player.set_text(&format!("{} won!", btns[i].get_filename()));
+
             } 
              
         }
@@ -159,13 +168,15 @@ async fn main() {
                 
         x_score += 1;
         game_over = true;
+         lbl_Player.set_text("X won!");
     } else {
         o_score += 1;
         game_over = true;
+        lbl_Player.set_text("O won!");
     }
                 }
     btns[i].enabled = false;
-    lbl_Player.set_text(&format!("{} won!", btns[i].get_filename()));
+    
     }
 }
 for i in (2..3).step_by(2) {
@@ -178,14 +189,16 @@ for i in (2..3).step_by(2) {
                 
         x_score += 1;
         game_over = true;
+        lbl_Player.set_text("X won!");
     } else {
         o_score += 1;
         game_over = true;
+        lbl_Player.set_text("O won!");
     }
                 }
 
         btns[i].enabled = false;
-        lbl_Player.set_text(&format!("{} won!", btns[i].get_filename()));
+        
     }
 }
 
@@ -199,14 +212,16 @@ for i in (2..3).step_by(2) {
                 
         x_score += 1;
         game_over = true;
+         lbl_Player.set_text("X won!");
     } else {
         o_score += 1;
         game_over = true;
+        lbl_Player.set_text("O won!");
     }
                 }
 
     btns[0].enabled = false;
-    lbl_Player.set_text(&format!("{} won!", btns[0].get_filename()));
+   
 }
 }// add reset confirmation to reset score aswell or just gameboard
 
@@ -246,3 +261,4 @@ for i in (2..3).step_by(2) {
         next_frame().await;
     }
 }
+// make animated like just hovering xs and os backgrounmd for the game and a main menu or nah
