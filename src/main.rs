@@ -259,7 +259,7 @@ async fn main() {
             && btns[5].get_filename() != "assets/placeholder.png"
             && btns[6].get_filename() != "assets/placeholder.png"
             && btns[7].get_filename() != "assets/placeholder.png"
-            && btns[8].get_filename() != "assets/placeholder.png"
+            && btns[8].get_filename() != "assets/placeholder.png" && game_over ==  false
         {
 
             lbl_Player.set_text("TIE");
