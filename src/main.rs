@@ -6,8 +6,6 @@ Program Details: Tic tac toe game
 
 mod ui;
 mod utils;
-use core::num;
-use std::result;
 
 use crate::ui::image_button::ImageButton;
 use crate::ui::label::Label;
@@ -20,12 +18,13 @@ use macroquad::input::KeyCode::B;
 use macroquad::input::KeyCode::Y;
 use macroquad::prelude::*;
 use macroquad::ui::DragState::Clicked;
-
+use miniquad::date;
+use crate::ui::messagebox::{MessageBox, MessageBoxResult};
 /// Set up window settings before the app runs
 fn window_conf() -> Conf {
     Conf {
         window_title: "tic tac toe".to_string(),
-        window_width: 1050,
+        window_width: 1250,
         window_height: 768,
         fullscreen: false,
         high_dpi: true,
@@ -34,13 +33,34 @@ fn window_conf() -> Conf {
         ..Default::default()
     }
 }
+async fn ai_move(ai_diff: i32, vector: &mut Vec<ImageButton>, player: bool, tm: TextureManager) {
+if ai_diff == 1 {
+    
+    loop{
+        let AImove = rand::gen_range(0, vector.len());
+        if vector[AImove].get_filename() == "assets/placeholder.png"{
+            if player == true{
+                vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
+            } else {
+                vector[AImove].set_image("assets/x.png", "assets/x.png").await;
+                
+            }
+            vector[AImove].enabled = false;
+            break;
 
+        } 
+    }
+}
+
+}
 #[macroquad::main(window_conf)]
 async fn main() {
+    let tm = TextureManager::new();
+    tm.preload_all(&["assets/x.png", "assets/o.png", "assets/placeholder.png"]).await;
     let mut btn_Easy = TextButton::new(650.0, 400.0, 200.0, 60.0, "EASY", WHITE, GREEN, 30);
     let mut btn_Medium = TextButton::new(850.0, 400.0, 200.0, 60.0, "MEDIUM", WHITE, YELLOW, 30);
     let mut btn_Hard = TextButton::new(1050.0, 400.0, 200.0, 60.0, "HARD", WHITE, RED, 30);
-
+    
     let mut btn_Human = TextButton::new(650.0, 200.0, 200.0, 60.0, "Human", WHITE, BLUE, 30);
     let mut btn_AI = TextButton::new(850.0, 200.0, 200.0, 60.0, "AI", WHITE, RED, 30);
 
@@ -49,89 +69,99 @@ async fn main() {
     let mut lbl_Title = Label::new("TIC TAC TOE", 200.0, 100.0, 40);
     let mut btn_Reset = TextButton::new(150.0, 650.0, 200.0, 60.0, "Reset", WHITE, RED, 30);
     let mut btns = vec![
-        ImageButton::new(
+       ImageButton::from_preload(
             200.0,                    // x position
             190.0,                    // y position
             100.0,                    // width
             100.0,                    // height
-            "assets/placeholder.png", // normal state image
-            "assets/placeholder.png", // hover state image
+            tm.get_preload("assets/placeholder.png").unwrap(), // normal state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // hover state image
         )
-        .await,
-        ImageButton::new(
+        ,
+        ImageButton::from_preload(
             310.0,                    // x position
             190.0,                    // y position
             100.0,                    // width
             100.0,                    // height
-            "assets/placeholder.png", // normal state image
-            "assets/placeholder.png", // hover state image
+            tm.get_preload("assets/placeholder.png").unwrap(), // normal state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // hover state image
         )
-        .await,
-        ImageButton::new(
+        ,
+        ImageButton::from_preload(
             420.0,                    // x position
             190.0,                    // y position
             100.0,                    // width
             100.0,                    // height
-            "assets/placeholder.png", // normal state image
-            "assets/placeholder.png", // hover state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // normal state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // hover state image
         )
-        .await,
-        ImageButton::new(
+        ,
+        ImageButton::from_preload(
             200.0,                    // x position
             300.0,                    // y position
             100.0,                    // width
             100.0,                    // height
-            "assets/placeholder.png", // normal state image
-            "assets/placeholder.png", // hover state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // normal state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // hover state image
         )
-        .await,
-        ImageButton::new(
+        ,
+        ImageButton::from_preload(
             310.0,                    // x position
             300.0,                    // y position
             100.0,                    // width
             100.0,                    // height
-            "assets/placeholder.png", // normal state image
-            "assets/placeholder.png", // hover state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // normal state image
+            tm.get_preload("assets/placeholder.png").unwrap(), // hover state image
         )
-        .await,
-        ImageButton::new(
+        ,
+        ImageButton::from_preload(
             420.0,                    // x position
             300.0,                    // y position
             100.0,                    // width
             100.0,                    // height
-            "assets/placeholder.png", // normal state image
-            "assets/placeholder.png", // hover state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // normal state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // hover state image
         )
-        .await,
-        ImageButton::new(
+        ,
+        ImageButton::from_preload(
             200.0,                    // x position
             410.0,                    // y position
             100.0,                    // width
             100.0,                    // height
-            "assets/placeholder.png", // normal state image
-            "assets/placeholder.png", // hover state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // normal state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // hover state image
         )
-        .await,
-        ImageButton::new(
+        ,
+       ImageButton::from_preload(
             310.0,                    // x position
             410.0,                    // y position
             100.0,                    // width
             100.0,                    // height
-            "assets/placeholder.png", // normal state image
-            "assets/placeholder.png", // hover state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // normal state image
+             tm.get_preload("assets/placeholder.png").unwrap(), // hover state image
         )
-        .await,
-        ImageButton::new(
+        ,
+        ImageButton::from_preload(
             420.0,                    // x position
             410.0,                    // y position
             100.0,                    // width
             100.0,                    // height
-            "assets/placeholder.png", // normal state image
-            "assets/placeholder.png", // hover state image
-        )
-        .await,
+            tm.get_preload("assets/placeholder.png").unwrap(), // normal state image
+            tm.get_preload("assets/placeholder.png").unwrap(), // hover state image
+        ),
     ];
-
+    let mut custom_against = MessageBox::custom(
+    "Choose who to play against",
+    "Select opponent:",
+    vec!["HUMAN", "AI"],
+    Some(1)  // Default to "Normal"
+);
+        let mut custom_diff = MessageBox::custom(
+    "Choose Difficulty",
+    "Select game difficulty:",
+    vec!["Easy", "Normal", "Impossible",],
+    Some(1)  // Default to "Normal"
+);
     btn_Exit.with_text_color(BLACK); // Sets the normal text color
     btn_Exit.with_hover_text_color(WHITE);
     btn_Reset.with_text_color(BLACK); // Sets the normal text color
@@ -159,8 +189,51 @@ async fn main() {
     let mut x_score = 0;
     let mut o_score = 0;
     let mut game_over = false;
+    let mut ai_first = false;
+    let mut ai_dif = 1;
+    rand::srand(date::now() as u64);
+    let mut started = true;
     loop {
         clear_background(WHITE);
+        if started == true{
+            
+            custom_diff.show();
+            
+if let Some(result) = custom_diff.draw() {
+    // Only runs when a button was clicked or dialog was closed
+    match result {
+        MessageBoxResult::ButtonPressed(0) => {
+            // "Yes" button pressed
+            ai_dif = 1;
+            started = false;
+        },
+        MessageBoxResult::ButtonPressed(1) => {
+            // "No" button pressed
+            // Continue without saving...
+             ai_dif = 2;
+             started = false;
+        },
+        MessageBoxResult::ButtonPressed(2) => {
+            // "Cancel" button pressed (for confirm_with_cancel dialogs)
+            // Handle cancel operation...
+             ai_dif = 3;
+             started = false;
+        },
+        #[allow(unused)]
+        MessageBoxResult::ButtonPressed(_) => {
+            // IMPORTANT: This catch-all pattern is required by the Rust compiler
+            // even for simple confirm dialogs to ensure all possible values are covered
+        },
+        MessageBoxResult::Closed => {
+            // Dialog closed with X or Escape key
+            // Handle as cancel...
+            started = false;
+        }
+    }
+}
+
+        }
+       
         if game_over == true {
             for i in 0..btns.len() {
                 btns[i].enabled = false;
@@ -241,6 +314,7 @@ async fn main() {
                         x_score += 1;
                         game_over = true;
                         lbl_Player.set_text("X won!");
+
                     } else {
                         o_score += 1;
                         game_over = true;
@@ -271,16 +345,17 @@ async fn main() {
             if btns[i].click() {
                 btns[i].enabled = false;
                 if player == false {
-                    btns[i].set_image("assets/x.png", "assets/x.png").await;
-
+                    btns[i].set_preload(tm.get_preload("assets/x.png").unwrap(),tm.get_preload("assets/x.png").unwrap());
+                   
                     player = true;
-                    println!("{}", btns[i].get_filename());
+                   // println!("{}", btns[i].get_filename());
                     lbl_Player.set_text("Player: O");
                 } else {
-                    btns[i].set_image("assets/o.png", "assets/o.png").await;
+                    ai_move(ai_dif, &mut btns, player).await;
+                   // btns[i].set_image("assets/o.png", "assets/o.png").await;
                     player = false;
 
-                    lbl_Player.set_text("Player: X");
+                    //lbl_Player.set_text("Player: X");
                 }
             }
         }
@@ -304,6 +379,8 @@ async fn main() {
         if btn_Easy.click() {}
         if btn_Medium.click() {}
         if btn_Hard.click() {}
+        custom_against.draw();
+        custom_diff.draw();
         next_frame().await;
     }
 }

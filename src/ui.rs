@@ -16,3 +16,4 @@ pub mod text_input;
 pub mod still_image;
 pub mod label;
 pub mod image_button;
+pub mod messagebox;
