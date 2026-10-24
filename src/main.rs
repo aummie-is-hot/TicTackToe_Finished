@@ -380,3 +380,4 @@ async fn main() {
     }
 }
 // make animated like just hovering xs and os backgrounmd for the game and a main menu or nah
+// make it for the medium ai have it generate a random number 1-3. 1 would make a random move 2 would be a logical move to setup a win and 3 would be a move to hard counter the X's move
