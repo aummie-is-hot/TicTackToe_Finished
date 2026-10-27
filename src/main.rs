@@ -188,13 +188,15 @@ async fn main() {
     let mut o_score = 0;
     let mut game_over = false;
     let mut ai_first = false;
-    let mut ai_dif = 1;
+    let mut ai_dif = 0;
     rand::srand(date::now() as u64);
     let mut started = true;
+    let mut ai_bot = false;
+    let mut show_custom_against = false;
     loop {
         clear_background(WHITE);
-        if started == true {
-            custom_diff.show();
+         if ai_bot == true{
+     custom_diff.show();
 
             if let Some(result) = custom_diff.draw() {
                 // Only runs when a button was clicked or dialog was closed
@@ -202,19 +204,19 @@ async fn main() {
                     MessageBoxResult::ButtonPressed(0) => {
                         // "Yes" button pressed
                         ai_dif = 1;
-                        started = false;
+                        ai_bot = false;
                     }
                     MessageBoxResult::ButtonPressed(1) => {
                         // "No" button pressed
                         // Continue without saving...
                         ai_dif = 2;
-                        started = false;
+                        ai_bot = false;
                     }
                     MessageBoxResult::ButtonPressed(2) => {
                         // "Cancel" button pressed (for confirm_with_cancel dialogs)
                         // Handle cancel operation...
                         ai_dif = 3;
-                        started = false;
+                        ai_bot = false;
                     }
                     #[allow(unused)]
                     MessageBoxResult::ButtonPressed(_) => {
@@ -224,11 +226,43 @@ async fn main() {
                     MessageBoxResult::Closed => {
                         // Dialog closed with X or Escape key
                         // Handle as cancel...
-                        started = false;
+                        
                     }
                 }
-            }
+            }         
         }
+        if started == true {
+            custom_against.show();
+            if let Some(result) = custom_against.draw() {
+    // Only runs when a button was clicked or dialog was closed
+    match result {
+        MessageBoxResult::ButtonPressed(0) => {
+            // "Yes" button pressed
+             ai_bot = false;
+             started = false;
+        },
+        MessageBoxResult::ButtonPressed(1) => {
+            // "No" button pressed
+            ai_bot = true;
+            started = false;
+            
+        },
+        #[allow(unused)]
+        MessageBoxResult::ButtonPressed(_) => {
+            // IMPORTANT: This catch-all pattern is required by the Rust compiler
+            // even for simple confirm dialogs to ensure all possible values are covered
+        },
+        MessageBoxResult::Closed => {
+            // Dialog closed with X or Escape key
+            // Handle as cancel...
+        }
+    }
+}  
+            
+}
+
+        
+  
 
         if game_over == true {
             for i in 0..btns.len() {
@@ -343,14 +377,18 @@ async fn main() {
                     player = true;
                     // println!("{}", btns[i].get_filename());
                     lbl_Player.set_text("Player: O");
-                    ai_move(ai_dif, &mut btns, player, &tm);
+                    if ai_dif>=1{
+ai_move(ai_dif, &mut btns, player, &tm);
                     player = false;
-                } //else {
+                     lbl_Player.set_text("Player: X");
+                    }
+                    
+                } else {
 
-                // btns[i].set_image("assets/o.png", "assets/o.png").await;
-
-                //lbl_Player.set_text("Player: X");
-                //}
+                btns[i].set_image("assets/o.png", "assets/o.png").await;
+                    player = false;
+                lbl_Player.set_text("Player: X");
+                }
             }
         }
         if player == true {}
@@ -369,9 +407,51 @@ async fn main() {
         }
         lbl_Player.draw();
         lbl_Title.draw();
-        if btn_AI.click() {}
-        if btn_Human.click() {}
-        if btn_Easy.click() {}
+        if btn_AI.click() {
+custom_diff.show();
+
+            if let Some(result) = custom_diff.draw() {
+                // Only runs when a button was clicked or dialog was closed
+                match result {
+                    MessageBoxResult::ButtonPressed(0) => {
+                        // "Yes" button pressed
+                        ai_dif = 1;
+                        ai_bot = false;
+                    }
+                    MessageBoxResult::ButtonPressed(1) => {
+                        // "No" button pressed
+                        // Continue without saving...
+                        ai_dif = 2;
+                        ai_bot = false;
+                    }
+                    MessageBoxResult::ButtonPressed(2) => {
+                        // "Cancel" button pressed (for confirm_with_cancel dialogs)
+                        // Handle cancel operation...
+                        ai_dif = 3;
+                        ai_bot = false;
+                    }
+                    #[allow(unused)]
+                    MessageBoxResult::ButtonPressed(_) => {
+                        // IMPORTANT: This catch-all pattern is required by the Rust compiler
+                        // even for simple confirm dialogs to ensure all possible values are covered
+                    }
+                    MessageBoxResult::Closed => {
+                        // Dialog closed with X or Escape key
+                        // Handle as cancel...
+                        
+                    }
+                }
+            }         
+        
+            
+
+        }
+        if btn_Human.click() {
+            ai_dif=0;
+        }
+        if btn_Easy.click() {
+            ai_dif = 1;
+        }
         if btn_Medium.click() {}
         if btn_Hard.click() {}
         custom_against.draw();
