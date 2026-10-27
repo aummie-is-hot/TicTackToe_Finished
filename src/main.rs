@@ -33,7 +33,7 @@ fn window_conf() -> Conf {
         ..Default::default()
     }
 }
-fn ai_move(ai_diff: i32, vector: &mut Vec<ImageButton>, player: bool, tm: &TextureManager) {
+fn ai_move(ai_diff: i32, vector: &mut Vec<ImageButton>, player: bool, tm: &TextureManager, movecount: i32) {
     if ai_diff == 1 {
         loop {
             let AImove = rand::gen_range(0, vector.len());
@@ -57,10 +57,50 @@ fn ai_move(ai_diff: i32, vector: &mut Vec<ImageButton>, player: bool, tm: &Textu
 break;
             }
         }
+        
     }
+
+    if ai_diff == 2{
+   loop {
+            if movecount == 1{
+                let AImove = rand::gen_range(0, vector.len());
+            if vector[AImove].get_filename() == "assets/placeholder.png" {
+                if player == true {
+                    vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
+                } else {
+                    vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
+                }
+                vector[AImove].enabled = false;
+                break;
+            } else if vector[0].get_filename() != "assets/placeholder.png"
+            && vector[1].get_filename() != "assets/placeholder.png"
+            && vector[2].get_filename() != "assets/placeholder.png"
+            && vector[3].get_filename() != "assets/placeholder.png"
+            && vector[4].get_filename() != "assets/placeholder.png"
+            && vector[5].get_filename() != "assets/placeholder.png"
+            && vector[6].get_filename() != "assets/placeholder.png"
+            && vector[7].get_filename() != "assets/placeholder.png"
+            && vector[8].get_filename() != "assets/placeholder.png"{
+break;
+            }
+        }
+
+             if movecount == 2{
+               
+
+
+
+             }
+
+        
+            }
+     
+}
+
 }
 #[macroquad::main(window_conf)]
 async fn main() {
+    let mut movecount = 1;
     let tm = TextureManager::new();
     tm.preload_all(&["assets/x.png", "assets/o.png", "assets/placeholder.png"]).await;
     let mut btn_Easy = TextButton::new(650.0, 400.0, 200.0, 60.0, "EASY", WHITE, GREEN, 30);
@@ -378,9 +418,10 @@ async fn main() {
                     // println!("{}", btns[i].get_filename());
                     lbl_Player.set_text("Player: O");
                     if ai_dif>=1{
-ai_move(ai_dif, &mut btns, player, &tm);
+ai_move(ai_dif, &mut btns, player, &tm, movecount);
                     player = false;
                      lbl_Player.set_text("Player: X");
+                     movecount+=1;
                     }
                     
                 } else {
@@ -403,6 +444,7 @@ ai_move(ai_dif, &mut btns, player, &tm);
                 btns[i].enabled = true;
                 lbl_Player.set_text("Player: X");
                 game_over = false;
+                movecount = 1;
             }
         }
         lbl_Player.draw();
@@ -452,8 +494,12 @@ custom_diff.show();
         if btn_Easy.click() {
             ai_dif = 1;
         }
-        if btn_Medium.click() {}
-        if btn_Hard.click() {}
+        if btn_Medium.click() {
+            ai_dif =2;
+        }
+        if btn_Hard.click() {
+            ai_dif = 3;
+        }
         custom_against.draw();
         custom_diff.draw();
         next_frame().await;
