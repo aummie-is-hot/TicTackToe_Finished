@@ -61,8 +61,18 @@ break;
     }
 
     if ai_diff == 2{
-   loop {
+   for i in 0..9 {
             if movecount == 1{
+                if (i == 6|| i == 8 || i == 0 || i ==2 ) && vector[4].get_filename() == "assets/placeholder.png"{
+                    vector[4].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
+                    vector[4].enabled = false;
+                }
+                
+        }
+
+             if movecount == 2{
+               
+               
                 let AImove = rand::gen_range(0, vector.len());
             if vector[AImove].get_filename() == "assets/placeholder.png" {
                 if player == true {
@@ -83,11 +93,6 @@ break;
             && vector[8].get_filename() != "assets/placeholder.png"{
 break;
             }
-        }
-
-             if movecount == 2{
-               
-
 
 
              }
@@ -451,26 +456,28 @@ ai_move(ai_dif, &mut btns, player, &tm, movecount);
         lbl_Title.draw();
         if btn_AI.click() {
 custom_diff.show();
+         
 
-            if let Some(result) = custom_diff.draw() {
+        }
+         if let Some(result) = custom_diff.draw() {
                 // Only runs when a button was clicked or dialog was closed
                 match result {
                     MessageBoxResult::ButtonPressed(0) => {
                         // "Yes" button pressed
                         ai_dif = 1;
-                        ai_bot = false;
+                        
                     }
                     MessageBoxResult::ButtonPressed(1) => {
                         // "No" button pressed
                         // Continue without saving...
                         ai_dif = 2;
-                        ai_bot = false;
+                       
                     }
                     MessageBoxResult::ButtonPressed(2) => {
                         // "Cancel" button pressed (for confirm_with_cancel dialogs)
                         // Handle cancel operation...
                         ai_dif = 3;
-                        ai_bot = false;
+                        
                     }
                     #[allow(unused)]
                     MessageBoxResult::ButtonPressed(_) => {
@@ -483,11 +490,7 @@ custom_diff.show();
                         
                     }
                 }
-            }         
-        
-            
-
-        }
+            }
         if btn_Human.click() {
             ai_dif=0;
         }
