@@ -46,62 +46,59 @@ fn ai_move(ai_diff: i32, vector: &mut Vec<ImageButton>, player: bool, tm: &Textu
                 vector[AImove].enabled = false;
                 break;
             } else if vector[0].get_filename() != "assets/placeholder.png"
-            && vector[1].get_filename() != "assets/placeholder.png"
-            && vector[2].get_filename() != "assets/placeholder.png"
-            && vector[3].get_filename() != "assets/placeholder.png"
-            && vector[4].get_filename() != "assets/placeholder.png"
-            && vector[5].get_filename() != "assets/placeholder.png"
-            && vector[6].get_filename() != "assets/placeholder.png"
-            && vector[7].get_filename() != "assets/placeholder.png"
-            && vector[8].get_filename() != "assets/placeholder.png"{
-break;
+                && vector[1].get_filename() != "assets/placeholder.png"
+                && vector[2].get_filename() != "assets/placeholder.png"
+                && vector[3].get_filename() != "assets/placeholder.png"
+                && vector[4].get_filename() != "assets/placeholder.png"
+                && vector[5].get_filename() != "assets/placeholder.png"
+                && vector[6].get_filename() != "assets/placeholder.png"
+                && vector[7].get_filename() != "assets/placeholder.png"
+                && vector[8].get_filename() != "assets/placeholder.png"
+            {
+                break;
             }
         }
-        
     }
 
-    if ai_diff == 2{
-   for i in 0..9 {
-            if movecount == 1{
-                if (i == 6|| i == 8 || i == 0 || i ==2 ) && vector[4].get_filename() == "assets/placeholder.png"{
+    if ai_diff == 2 {
+        
+            if movecount == 1 {
+                 loop{
+                let AImove = rand::gen_range(0, vector.len());
+                if vector[AImove].get_filename() == "assets/placeholder.png" {
+                    if player == true {
+                        vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
+                    } else {
+                        vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
+                    }
+                    vector[AImove].enabled = false;
+                    break;
+                } else if vector[0].get_filename() != "assets/placeholder.png"
+                    && vector[1].get_filename() != "assets/placeholder.png"
+                    && vector[2].get_filename() != "assets/placeholder.png"
+                    && vector[3].get_filename() != "assets/placeholder.png"
+                    && vector[4].get_filename() != "assets/placeholder.png"
+                    && vector[5].get_filename() != "assets/placeholder.png"
+                    && vector[6].get_filename() != "assets/placeholder.png"
+                    && vector[7].get_filename() != "assets/placeholder.png"
+                    && vector[8].get_filename() != "assets/placeholder.png"
+                {
+                    break;
+                }
+            }
+                
+            }
+
+            if movecount == 2 {
+               for i in 0..9 {
+                if (i == 6 || i == 8 || i == 0 || i == 2) && vector[4].get_filename() == "assets/placeholder.png" {
                     vector[4].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
                     vector[4].enabled = false;
                 }
                 
+            }
         }
-
-             if movecount == 2{
-               
-               
-                let AImove = rand::gen_range(0, vector.len());
-            if vector[AImove].get_filename() == "assets/placeholder.png" {
-                if player == true {
-                    vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
-                } else {
-                    vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
-                }
-                vector[AImove].enabled = false;
-                break;
-            } else if vector[0].get_filename() != "assets/placeholder.png"
-            && vector[1].get_filename() != "assets/placeholder.png"
-            && vector[2].get_filename() != "assets/placeholder.png"
-            && vector[3].get_filename() != "assets/placeholder.png"
-            && vector[4].get_filename() != "assets/placeholder.png"
-            && vector[5].get_filename() != "assets/placeholder.png"
-            && vector[6].get_filename() != "assets/placeholder.png"
-            && vector[7].get_filename() != "assets/placeholder.png"
-            && vector[8].get_filename() != "assets/placeholder.png"{
-break;
-            }
-
-
-             }
-
-        
-            }
-     
-}
-
+    }
 }
 #[macroquad::main(window_conf)]
 async fn main() {
@@ -240,8 +237,8 @@ async fn main() {
     let mut show_custom_against = false;
     loop {
         clear_background(WHITE);
-         if ai_bot == true{
-     custom_diff.show();
+        if ai_bot == true {
+            custom_diff.show();
 
             if let Some(result) = custom_diff.draw() {
                 // Only runs when a button was clicked or dialog was closed
@@ -271,43 +268,37 @@ async fn main() {
                     MessageBoxResult::Closed => {
                         // Dialog closed with X or Escape key
                         // Handle as cancel...
-                        
                     }
                 }
-            }         
+            }
         }
         if started == true {
             custom_against.show();
             if let Some(result) = custom_against.draw() {
-    // Only runs when a button was clicked or dialog was closed
-    match result {
-        MessageBoxResult::ButtonPressed(0) => {
-            // "Yes" button pressed
-             ai_bot = false;
-             started = false;
-        },
-        MessageBoxResult::ButtonPressed(1) => {
-            // "No" button pressed
-            ai_bot = true;
-            started = false;
-            
-        },
-        #[allow(unused)]
-        MessageBoxResult::ButtonPressed(_) => {
-            // IMPORTANT: This catch-all pattern is required by the Rust compiler
-            // even for simple confirm dialogs to ensure all possible values are covered
-        },
-        MessageBoxResult::Closed => {
-            // Dialog closed with X or Escape key
-            // Handle as cancel...
+                // Only runs when a button was clicked or dialog was closed
+                match result {
+                    MessageBoxResult::ButtonPressed(0) => {
+                        // "Yes" button pressed
+                        ai_bot = false;
+                        started = false;
+                    }
+                    MessageBoxResult::ButtonPressed(1) => {
+                        // "No" button pressed
+                        ai_bot = true;
+                        started = false;
+                    }
+                    #[allow(unused)]
+                    MessageBoxResult::ButtonPressed(_) => {
+                        // IMPORTANT: This catch-all pattern is required by the Rust compiler
+                        // even for simple confirm dialogs to ensure all possible values are covered
+                    }
+                    MessageBoxResult::Closed => {
+                        // Dialog closed with X or Escape key
+                        // Handle as cancel...
+                    }
+                }
+            }
         }
-    }
-}  
-            
-}
-
-        
-  
 
         if game_over == true {
             for i in 0..btns.len() {
@@ -422,18 +413,16 @@ async fn main() {
                     player = true;
                     // println!("{}", btns[i].get_filename());
                     lbl_Player.set_text("Player: O");
-                    if ai_dif>=1{
-ai_move(ai_dif, &mut btns, player, &tm, movecount);
-                    player = false;
-                     lbl_Player.set_text("Player: X");
-                     movecount+=1;
+                    if ai_dif >= 1 {
+                        ai_move(ai_dif, &mut btns, player, &tm, movecount);
+                        player = false;
+                        lbl_Player.set_text("Player: X");
+                        movecount += 1;
                     }
-                    
                 } else {
-
-                btns[i].set_image("assets/o.png", "assets/o.png").await;
+                    btns[i].set_image("assets/o.png", "assets/o.png").await;
                     player = false;
-                lbl_Player.set_text("Player: X");
+                    lbl_Player.set_text("Player: X");
                 }
             }
         }
@@ -455,50 +444,44 @@ ai_move(ai_dif, &mut btns, player, &tm, movecount);
         lbl_Player.draw();
         lbl_Title.draw();
         if btn_AI.click() {
-custom_diff.show();
-         
-
+            custom_diff.show();
         }
-         if let Some(result) = custom_diff.draw() {
-                // Only runs when a button was clicked or dialog was closed
-                match result {
-                    MessageBoxResult::ButtonPressed(0) => {
-                        // "Yes" button pressed
-                        ai_dif = 1;
-                        
-                    }
-                    MessageBoxResult::ButtonPressed(1) => {
-                        // "No" button pressed
-                        // Continue without saving...
-                        ai_dif = 2;
-                       
-                    }
-                    MessageBoxResult::ButtonPressed(2) => {
-                        // "Cancel" button pressed (for confirm_with_cancel dialogs)
-                        // Handle cancel operation...
-                        ai_dif = 3;
-                        
-                    }
-                    #[allow(unused)]
-                    MessageBoxResult::ButtonPressed(_) => {
-                        // IMPORTANT: This catch-all pattern is required by the Rust compiler
-                        // even for simple confirm dialogs to ensure all possible values are covered
-                    }
-                    MessageBoxResult::Closed => {
-                        // Dialog closed with X or Escape key
-                        // Handle as cancel...
-                        
-                    }
+        if let Some(result) = custom_diff.draw() {
+            // Only runs when a button was clicked or dialog was closed
+            match result {
+                MessageBoxResult::ButtonPressed(0) => {
+                    // "Yes" button pressed
+                    ai_dif = 1;
+                }
+                MessageBoxResult::ButtonPressed(1) => {
+                    // "No" button pressed
+                    // Continue without saving...
+                    ai_dif = 2;
+                }
+                MessageBoxResult::ButtonPressed(2) => {
+                    // "Cancel" button pressed (for confirm_with_cancel dialogs)
+                    // Handle cancel operation...
+                    ai_dif = 3;
+                }
+                #[allow(unused)]
+                MessageBoxResult::ButtonPressed(_) => {
+                    // IMPORTANT: This catch-all pattern is required by the Rust compiler
+                    // even for simple confirm dialogs to ensure all possible values are covered
+                }
+                MessageBoxResult::Closed => {
+                    // Dialog closed with X or Escape key
+                    // Handle as cancel...
                 }
             }
+        }
         if btn_Human.click() {
-            ai_dif=0;
+            ai_dif = 0;
         }
         if btn_Easy.click() {
             ai_dif = 1;
         }
         if btn_Medium.click() {
-            ai_dif =2;
+            ai_dif = 2;
         }
         if btn_Hard.click() {
             ai_dif = 3;
