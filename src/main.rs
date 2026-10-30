@@ -34,7 +34,6 @@ fn window_conf() -> Conf {
     }
 }
 fn ai_move(ai_diff: i32, vector: &mut Vec<ImageButton>, player: bool, tm: &TextureManager, movecount: i32) {
-    
     if ai_diff == 1 {
         loop {
             let AImove = rand::gen_range(0, vector.len());
@@ -62,9 +61,8 @@ fn ai_move(ai_diff: i32, vector: &mut Vec<ImageButton>, player: bool, tm: &Textu
     }
 
     if ai_diff == 2 {
-    
-            if movecount == 1 {
-                 loop{
+        if movecount == 1 {
+            loop {
                 let AImove = rand::gen_range(0, vector.len());
                 if vector[AImove].get_filename() == "assets/placeholder.png" {
                     if player == true {
@@ -87,92 +85,73 @@ fn ai_move(ai_diff: i32, vector: &mut Vec<ImageButton>, player: bool, tm: &Textu
                     break;
                 }
             }
-                
+        }
+
+        if movecount == 2 {
+            let winning_moves = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+            let mut x_moves = [false; 9];
+
+            for i in 0..9 {
+                if vector[i].get_filename() == "assets/x.png" {
+                    x_moves[i] = true;
+                }
             }
+            let mut blocked = false;
 
             if movecount == 2 {
-                  let winning_moves = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-];
-let mut x_moves = [false; 9];
-
-for i in 0..9 {
-    if vector[i].get_filename() == "assets/x.png" {
-        x_moves[i] = true;
-    }
-}
-let mut blocked = false;
-
-if movecount == 2 {
-    for combination in winning_moves {
-        if x_moves[combination[0]] && x_moves[combination[1]]
-            && vector[combination[2]].get_filename() == "assets/placeholder.png"
-        {
-            vector[combination[2]].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
-            vector[combination[2]].enabled = false;
-            blocked = true;
-            break;
-        }
-        else if x_moves[combination[0]] && x_moves[combination[2]]
-            && vector[combination[1]].get_filename() == "assets/placeholder.png"
-        {
-            vector[combination[1]].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
-            vector[combination[1]].enabled = false;
-            blocked = true;
-            break;
-        }
-        else if x_moves[combination[1]] && x_moves[combination[2]]
-            && vector[combination[0]].get_filename() == "assets/placeholder.png"
-        {
-            vector[combination[0]].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
-            vector[combination[0]].enabled = false;
-            blocked = true;
-            break;
-        }
-    }
-}
-if blocked == false {
-    loop{
-                let AImove = rand::gen_range(0, vector.len());
-                if vector[AImove].get_filename() == "assets/placeholder.png" {
-                    if player == true {
-                        vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
-                    } 
-                    vector[AImove].enabled = false;
-                    break;
-                } else if vector[0].get_filename() != "assets/placeholder.png"
-                    && vector[1].get_filename() != "assets/placeholder.png"
-                    && vector[2].get_filename() != "assets/placeholder.png"
-                    && vector[3].get_filename() != "assets/placeholder.png"
-                    && vector[4].get_filename() != "assets/placeholder.png"
-                    && vector[5].get_filename() != "assets/placeholder.png"
-                    && vector[6].get_filename() != "assets/placeholder.png"
-                    && vector[7].get_filename() != "assets/placeholder.png"
-                    && vector[8].get_filename() != "assets/placeholder.png"
-                {
-                    break;
+                for combination in winning_moves {
+                    if x_moves[combination[0]] && x_moves[combination[1]] && vector[combination[2]].get_filename() == "assets/placeholder.png" {
+                        vector[combination[2]].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
+                        vector[combination[2]].enabled = false;
+                        blocked = true;
+                        break;
+                    } else if x_moves[combination[0]] && x_moves[combination[2]] && vector[combination[1]].get_filename() == "assets/placeholder.png"
+                    {
+                        vector[combination[1]].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
+                        vector[combination[1]].enabled = false;
+                        blocked = true;
+                        break;
+                    } else if x_moves[combination[1]] && x_moves[combination[2]] && vector[combination[0]].get_filename() == "assets/placeholder.png"
+                    {
+                        vector[combination[0]].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
+                        vector[combination[0]].enabled = false;
+                        blocked = true;
+                        break;
+                    }
                 }
             }
-}
+            if blocked == false {
+                loop {
+                    let AImove = rand::gen_range(0, vector.len());
+                    if vector[AImove].get_filename() == "assets/placeholder.png" {
+                        if player == true {
+                            vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
+                        }
+                        vector[AImove].enabled = false;
+                        break;
+                    } else if vector[0].get_filename() != "assets/placeholder.png"
+                        && vector[1].get_filename() != "assets/placeholder.png"
+                        && vector[2].get_filename() != "assets/placeholder.png"
+                        && vector[3].get_filename() != "assets/placeholder.png"
+                        && vector[4].get_filename() != "assets/placeholder.png"
+                        && vector[5].get_filename() != "assets/placeholder.png"
+                        && vector[6].get_filename() != "assets/placeholder.png"
+                        && vector[7].get_filename() != "assets/placeholder.png"
+                        && vector[8].get_filename() != "assets/placeholder.png"
+                    {
+                        break;
+                    }
+                }
+            }
         }
-
-
-
 
         if movecount == 3 {
-                 loop{
+            loop {
                 let AImove = rand::gen_range(0, vector.len());
                 if vector[AImove].get_filename() == "assets/placeholder.png" {
                     if player == true {
                         vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
-                    } 
+                    }
                     vector[AImove].enabled = false;
                     break;
                 } else if vector[0].get_filename() != "assets/placeholder.png"
@@ -188,23 +167,15 @@ if blocked == false {
                     break;
                 }
             }
+        }
 
-
-                
-            }
-
-
-
-
-
-
-              if movecount == 4{
-                 loop{
+        if movecount == 4 {
+            loop {
                 let AImove = rand::gen_range(0, vector.len());
                 if vector[AImove].get_filename() == "assets/placeholder.png" {
                     if player == true {
                         vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
-                    } 
+                    }
                     vector[AImove].enabled = false;
                     break;
                 } else if vector[0].get_filename() != "assets/placeholder.png"
@@ -220,9 +191,13 @@ if blocked == false {
                     break;
                 }
             }
-                
-            }
+        }
     }
+
+
+
+
+
 }
 #[macroquad::main(window_conf)]
 async fn main() {
