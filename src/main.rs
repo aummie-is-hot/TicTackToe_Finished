@@ -301,7 +301,7 @@ if ai_diff == 3 {
         }
     }
 }
-            if blocked == false {
+            if blocked == false { // might be useless with the code ahead of it check for redundancy lowkey
                 loop {
                     let AImove = rand::gen_range(0, vector.len());
                     if vector[AImove].get_filename() == "assets/placeholder.png" && AImove != 0 && AImove != 2 && AImove != 6 && AImove != 8 {
