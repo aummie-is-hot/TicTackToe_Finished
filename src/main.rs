@@ -121,8 +121,10 @@ fn ai_move(ai_diff: i32, vector: &mut Vec<ImageButton>, player: bool, tm: &Textu
                 }
             }
             if blocked == false {
+                
                 loop {
                     let AImove = rand::gen_range(0, vector.len());
+
                     if vector[AImove].get_filename() == "assets/placeholder.png" {
                         if player == true {
                             vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
@@ -284,6 +286,21 @@ if ai_diff == 3 {
                     }
                 }
             }
+            if blocked == false && x_moves[4] {
+    loop {
+        let AImove = [0, 2, 6, 8][rand::gen_range(0, 4)];
+
+        if vector[AImove].get_filename() == "assets/placeholder.png" {
+            vector[AImove].set_preload(
+                tm.get_preload("assets/o.png").unwrap(),
+                tm.get_preload("assets/o.png").unwrap()
+            );
+            vector[AImove].enabled = false;
+            blocked = true;
+            break;
+        }
+    }
+}
             if blocked == false {
                 loop {
                     let AImove = rand::gen_range(0, vector.len());
