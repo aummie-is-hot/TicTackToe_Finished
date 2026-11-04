@@ -253,11 +253,12 @@ if ai_diff == 3 {
         if movecount == 2 {
             let winning_moves = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
             let mut x_moves = [false; 9];
-
+           
             for i in 0..9 {
                 if vector[i].get_filename() == "assets/x.png" {
                     x_moves[i] = true;
                 }
+               
             }
             let mut blocked = false;
 
@@ -286,7 +287,7 @@ if ai_diff == 3 {
             if blocked == false {
                 loop {
                     let AImove = rand::gen_range(0, vector.len());
-                    if vector[AImove].get_filename() == "assets/placeholder.png" {
+                    if vector[AImove].get_filename() == "assets/placeholder.png" && AImove != 0 && AImove != 2 && AImove != 6 && AImove != 8 {
                         if player == true {
                             vector[AImove].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
                         }
@@ -312,15 +313,55 @@ if ai_diff == 3 {
              let winning_moves = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
             let mut x_moves = [false; 9];
 
+            let mut o_moves = [false; 9];
             for i in 0..9 {
                 if vector[i].get_filename() == "assets/x.png" {
                     x_moves[i] = true;
                 }
+                if vector[i].get_filename() == "assets/o.png" {
+                    o_moves[i] = true;
+                }
             }
             let mut blocked = false;
+            for combination in winning_moves {
+    if o_moves[combination[0]] && o_moves[combination[1]]
+        && vector[combination[2]].get_filename() == "assets/placeholder.png"
+    {
+        vector[combination[2]].set_preload(
+            tm.get_preload("assets/o.png").unwrap(),
+            tm.get_preload("assets/o.png").unwrap()
+        );
+        vector[combination[2]].enabled = false;
+        blocked = true;
+        break;
+    }
+    else if o_moves[combination[0]] && o_moves[combination[2]]
+        && vector[combination[1]].get_filename() == "assets/placeholder.png"
+    {
+        vector[combination[1]].set_preload(
+            tm.get_preload("assets/o.png").unwrap(),
+            tm.get_preload("assets/o.png").unwrap()
+        );
+        vector[combination[1]].enabled = false;
+        blocked = true;
+        break;
+    }
+    else if o_moves[combination[1]] && o_moves[combination[2]]
+        && vector[combination[0]].get_filename() == "assets/placeholder.png"
+    {
+        vector[combination[0]].set_preload(
+            tm.get_preload("assets/o.png").unwrap(),
+            tm.get_preload("assets/o.png").unwrap()
+        );
+        vector[combination[0]].enabled = false;
+        blocked = true;
+        break;
+    }
+}
 
             if movecount == 3{
-                for combination in winning_moves {
+                if blocked == false {
+                     for combination in winning_moves {
                     if x_moves[combination[0]] && x_moves[combination[1]] && vector[combination[2]].get_filename() == "assets/placeholder.png" {
                         vector[combination[2]].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
                         vector[combination[2]].enabled = false;
@@ -339,7 +380,8 @@ if ai_diff == 3 {
                         blocked = true;
                         break;
                     }
-                }
+                }}
+               
             }
             if blocked == false {
                 loop {
@@ -366,18 +408,59 @@ if ai_diff == 3 {
             }
         }
 
-        if movecount == 4 {let winning_moves = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+        if movecount == 4 {
+              let winning_moves = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
             let mut x_moves = [false; 9];
 
+            let mut o_moves = [false; 9];
             for i in 0..9 {
                 if vector[i].get_filename() == "assets/x.png" {
                     x_moves[i] = true;
                 }
+                if vector[i].get_filename() == "assets/o.png" {
+                    o_moves[i] = true;
+                }
             }
             let mut blocked = false;
+            for combination in winning_moves {
+    if o_moves[combination[0]] && o_moves[combination[1]]
+        && vector[combination[2]].get_filename() == "assets/placeholder.png"
+    {
+        vector[combination[2]].set_preload(
+            tm.get_preload("assets/o.png").unwrap(),
+            tm.get_preload("assets/o.png").unwrap()
+        );
+        vector[combination[2]].enabled = false;
+        blocked = true;
+        break;
+    }
+    else if o_moves[combination[0]] && o_moves[combination[2]]
+        && vector[combination[1]].get_filename() == "assets/placeholder.png"
+    {
+        vector[combination[1]].set_preload(
+            tm.get_preload("assets/o.png").unwrap(),
+            tm.get_preload("assets/o.png").unwrap()
+        );
+        vector[combination[1]].enabled = false;
+        blocked = true;
+        break;
+    }
+    else if o_moves[combination[1]] && o_moves[combination[2]]
+        && vector[combination[0]].get_filename() == "assets/placeholder.png"
+    {
+        vector[combination[0]].set_preload(
+            tm.get_preload("assets/o.png").unwrap(),
+            tm.get_preload("assets/o.png").unwrap()
+        );
+        vector[combination[0]].enabled = false;
+        blocked = true;
+        break;
+    }
+}
 
-            if movecount == 4 {
-                for combination in winning_moves {
+            if movecount == 4{
+                if blocked == false {
+                     for combination in winning_moves {
                     if x_moves[combination[0]] && x_moves[combination[1]] && vector[combination[2]].get_filename() == "assets/placeholder.png" {
                         vector[combination[2]].set_preload(tm.get_preload("assets/o.png").unwrap(), tm.get_preload("assets/o.png").unwrap());
                         vector[combination[2]].enabled = false;
@@ -396,7 +479,8 @@ if ai_diff == 3 {
                         blocked = true;
                         break;
                     }
-                }
+                }}
+               
             }
             if blocked == false {
                 loop {
