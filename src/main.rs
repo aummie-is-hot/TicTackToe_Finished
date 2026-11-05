@@ -531,7 +531,7 @@ if ai_diff == 3 {
 async fn main() {
     let mut movecount = 1;
     let tm = TextureManager::new();
-    tm.preload_all(&["assets/x.png", "assets/o.png", "assets/placeholder.png"]).await;
+    tm.preload_all(&["assets/x.png", "assets/o.png", "assets/placeholder.png", "assets/background.png"]).await;
     let mut btn_Easy = TextButton::new(650.0, 400.0, 200.0, 60.0, "EASY", WHITE, GREEN, 30);
     let mut btn_Medium = TextButton::new(850.0, 400.0, 200.0, 60.0, "MEDIUM", WHITE, YELLOW, 30);
     let mut btn_Hard = TextButton::new(1050.0, 400.0, 200.0, 60.0, "HARD", WHITE, RED, 30);
@@ -661,9 +661,22 @@ async fn main() {
     rand::srand(date::now() as u64);
     let mut started = true;
     let mut ai_bot = false;
+        lbl_score.with_colors(WHITE, Some(DARKGRAY));
+            lbl_Player.with_colors(WHITE, Some(DARKGRAY));
+                lbl_Title.with_colors(WHITE, Some(DARKGRAY));
     let mut show_custom_against = false;
+     let img_background = StillImage::from_preload(
+        tm.get_preload("assets/background.png").unwrap(),
+        1250.0,
+        768.0,
+        0.0,
+        0.0,
+        true,
+        1.0,
+    );
     loop {
         clear_background(WHITE);
+        img_background.draw();
         if ai_bot == true {
             custom_diff.show();
 
